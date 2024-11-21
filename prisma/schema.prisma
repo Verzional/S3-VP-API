@@ -14,15 +14,18 @@ datasource db {
 }
 
 model MataKuliah {
-  id           Int      @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   nama         String
-  kodeUnik     String   @unique
+  kodeUnik     String      @unique
   namaDosen    String
   linkUrlImage String
+  mahasiswa    Mahasiswa[]
 }
 
 model Mahasiswa {
-  id   Int    @id @default(autoincrement())
-  nama String
-  nim  String @unique
+  id           Int        @id @default(autoincrement())
+  nama         String
+  nim          String     @unique
+  mataKuliahId Int
+  mataKuliah   MataKuliah @relation(fields: [mataKuliahId], references: [id])
 }
