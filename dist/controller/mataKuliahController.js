@@ -15,11 +15,73 @@ class MataKuliahController {
     static register(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const mataKuliah = yield mataKuliahService_1.MataKuliahService.register(req.body);
-                res.status(201).json(mataKuliah);
+                const result = yield mataKuliahService_1.MataKuliahService.register(req.body);
+                res.status(201).json({
+                    status: "success",
+                    data: result,
+                });
             }
-            catch (err) {
-                next(err);
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static update(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const id = parseInt(req.params.id);
+                const result = yield mataKuliahService_1.MataKuliahService.update(id, req.body);
+                res.status(200).json({
+                    status: "success",
+                    data: result,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static get(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const id = parseInt(req.params.id);
+                const result = yield mataKuliahService_1.MataKuliahService.get(id);
+                res.status(200).json({
+                    status: "success",
+                    data: result,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static list(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield mataKuliahService_1.MataKuliahService.list();
+                res.status(200).json({
+                    status: "success",
+                    data: result,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static delete(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const id = parseInt(req.params.id);
+                yield mataKuliahService_1.MataKuliahService.delete(id);
+                res.status(200).json({
+                    status: "success",
+                    message: "Mata kuliah berhasil dihapus",
+                });
+            }
+            catch (error) {
+                next(error);
             }
         });
     }

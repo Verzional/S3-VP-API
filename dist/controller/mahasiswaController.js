@@ -15,11 +15,73 @@ class MahasiswaController {
     static register(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const mahasiswa = yield mahasiswaService_1.MahasiswaService.register(req.body);
-                res.status(201).json(mahasiswa);
+                const result = yield mahasiswaService_1.MahasiswaService.register(req.body);
+                res.status(201).json({
+                    status: "success",
+                    data: result,
+                });
             }
-            catch (err) {
-                next(err);
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static update(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const id = parseInt(req.params.id);
+                const result = yield mahasiswaService_1.MahasiswaService.update(id, req.body);
+                res.status(200).json({
+                    status: "success",
+                    data: result,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static get(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const id = parseInt(req.params.id);
+                const result = yield mahasiswaService_1.MahasiswaService.get(id);
+                res.status(200).json({
+                    status: "success",
+                    data: result,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static list(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield mahasiswaService_1.MahasiswaService.list();
+                res.status(200).json({
+                    status: "success",
+                    data: result,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    static delete(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const id = parseInt(req.params.id);
+                yield mahasiswaService_1.MahasiswaService.delete(id);
+                res.status(200).json({
+                    status: "success",
+                    data: null,
+                });
+            }
+            catch (error) {
+                next(error);
             }
         });
     }

@@ -9,5 +9,11 @@ MataKuliahValidation.REGISTER = zod_1.z.object({
     nama: zod_1.z.string().min(1),
     kodeUnik: zod_1.z.string().min(1),
     namaDosen: zod_1.z.string().min(1),
-    linkUrlImage: zod_1.z.string().min(1)
+    linkUrlImage: zod_1.z.string().min(1),
+});
+MataKuliahValidation.UPDATE = zod_1.z.object({
+    nama: zod_1.z.string().min(1),
+    kodeUnik: zod_1.z.string().min(1),
+    namaDosen: zod_1.z.string().min(1),
+    linkUrlImage: zod_1.z.string().min(1),
 });

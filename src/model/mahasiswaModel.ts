@@ -1,23 +1,25 @@
-import {Mahasiswa} from "@prisma/client"
+import { Mahasiswa, MataKuliah } from "@prisma/client";
 
 export interface MahasiswaRequest {
-    nama: string
-    nim: string
-    mataKuliahId: number
+    nama: string;
+    nim: string;
+    mataKuliahId: number;
 }
 
 export interface MahasiswaResponse {
-    id: number
-    nama: string
-    nim: string
-    mataKuliahId: number
+    id: number;
+    nama: string;
+    nim: string;
+    mataKuliahId: number;
 }
 
-export function toMahasiswaResponse(mahasiswa: Mahasiswa): MahasiswaResponse {
-    return {
-        id: mahasiswa.id,
-        nama: mahasiswa.nama,
-        nim: mahasiswa.nim,
-        mataKuliahId: mahasiswa.mataKuliahId
+export class MahasiswaModel {
+    static toResponse(mahasiswa: Mahasiswa & { mataKuliah?: MataKuliah }): MahasiswaResponse {
+        return {
+            id: mahasiswa.id,
+            nama: mahasiswa.nama,
+            nim: mahasiswa.nim,
+            mataKuliahId: mahasiswa.mataKuliahId,
+        };
     }
 }

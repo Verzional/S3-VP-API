@@ -21,21 +21,76 @@ class MataKuliahService {
             const registerRequest = validation_1.Validation.validate(mataKuliahValidation_1.MataKuliahValidation.REGISTER, request);
             const kodeUnik = yield database_1.prismaClient.mataKuliah.findFirst({
                 where: {
-                    kodeUnik: registerRequest.kodeUnik
-                }
+                    kodeUnik: registerRequest.kodeUnik,
+                },
             });
             if (kodeUnik) {
                 throw new responseError_1.ResponseError(400, "Kode unik sudah terdaftar");
             }
             const mataKuliah = yield database_1.prismaClient.mataKuliah.create({
-                data: {
-                    nama: registerRequest.nama,
-                    kodeUnik: registerRequest.kodeUnik,
-                    namaDosen: registerRequest.namaDosen,
-                    linkUrlImage: registerRequest.linkUrlImage
-                }
+                data: registerRequest,
             });
-            return (0, mataKuliahModel_1.toMataKuliahResponse)(mataKuliah);
+            return mataKuliahModel_1.MataKuliahModel.toResponse(mataKuliah);
+        });
+    }
+    static update(id, request) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const updateRequest = validation_1.Validation.validate(mataKuliahValidation_1.MataKuliahValidation.UPDATE, request);
+            const existingMataKuliah = yield database_1.prismaClient.mataKuliah.findUnique({
+                where: { id },
+            });
+            if (!existingMataKuliah) {
+                throw new responseError_1.ResponseError(404, "Mata kuliah tidak ditemukan");
+            }
+            if (updateRequest.kodeUnik) {
+                const kodeUnik = yield database_1.prismaClient.mataKuliah.findFirst({
+                    where: {
+                        kodeUnik: updateRequest.kodeUnik,
+                        NOT: { id },
+                    },
+                });
+                if (kodeUnik) {
+                    throw new responseError_1.ResponseError(400, "Kode unik sudah terdaftar");
+                }
+            }
+            const mataKuliah = yield database_1.prismaClient.mataKuliah.update({
+                where: { id },
+                data: updateRequest,
+            });
+            return mataKuliahModel_1.MataKuliahModel.toResponse(mataKuliah);
+        });
+    }
+    static get(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const mataKuliah = yield database_1.prismaClient.mataKuliah.findUnique({
+                where: { id },
+                include: { mahasiswa: true },
+            });
+            if (!mataKuliah) {
+                throw new responseError_1.ResponseError(404, "Mata kuliah tidak ditemukan");
+            }
+            return mataKuliahModel_1.MataKuliahModel.toResponse(mataKuliah);
+        });
+    }
+    static list() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const mataKuliahs = yield database_1.prismaClient.mataKuliah.findMany({
+                include: { mahasiswa: true },
+            });
+            return mataKuliahs.map(mataKuliahModel_1.MataKuliahModel.toResponse);
+        });
+    }
+    static delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const existingMataKuliah = yield database_1.prismaClient.mataKuliah.findUnique({
+                where: { id },
+            });
+            if (!existingMataKuliah) {
+                throw new responseError_1.ResponseError(404, "Mata kuliah tidak ditemukan");
+            }
+            yield database_1.prismaClient.mataKuliah.delete({
+                where: { id },
+            });
         });
     }
 }
