@@ -8,9 +8,9 @@ export class MataKuliahValidation {
     linkUrlImage: z.string().min(1),
   });
   static readonly UPDATE: ZodType = z.object({
-    nama: z.string().min(1),
-    kodeUnik: z.string().min(1),
-    namaDosen: z.string().min(1),
-    linkUrlImage: z.string().min(1),
+    nama: z.string().min(1).optional(),
+    kodeUnik: z.string().min(1).optional(),
+    namaDosen: z.string().min(1).optional(),
+    linkUrlImage: z.string().min(1).optional(),
   });
 }

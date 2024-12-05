@@ -40,6 +40,18 @@ export class MahasiswaController {
     }
   }
 
+  static async getAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await MahasiswaService.getAll();
+      res.status(200).json({
+        status: "success",
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async list(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await MahasiswaService.list();

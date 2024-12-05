@@ -56,6 +56,20 @@ class MahasiswaController {
             }
         });
     }
+    static getAll(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield mahasiswaService_1.MahasiswaService.getAll();
+                res.status(200).json({
+                    status: "success",
+                    data: result,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
     static list(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

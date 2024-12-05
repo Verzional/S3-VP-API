@@ -11,7 +11,7 @@ MahasiswaValidation.REGISTER = zod_1.z.object({
     mataKuliahId: zod_1.z.number().int().positive()
 });
 MahasiswaValidation.UPDATE = zod_1.z.object({
-    nama: zod_1.z.string().min(1),
-    nim: zod_1.z.string().min(1).max(20),
-    mataKuliahId: zod_1.z.number().int().positive()
+    nama: zod_1.z.string().min(1).optional(),
+    nim: zod_1.z.string().min(1).max(20).optional(),
+    mataKuliahId: zod_1.z.number().int().positive().optional()
 });

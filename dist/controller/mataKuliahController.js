@@ -56,6 +56,20 @@ class MataKuliahController {
             }
         });
     }
+    static getAll(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield mataKuliahService_1.MataKuliahService.getAll();
+                res.status(200).json({
+                    status: "success",
+                    data: result,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
     static list(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

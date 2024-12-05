@@ -27,5 +27,5 @@ model Mahasiswa {
   nama         String
   nim          String     @unique
   mataKuliahId Int
-  mataKuliah   MataKuliah @relation(fields: [mataKuliahId], references: [id])
+  mataKuliah   MataKuliah @relation(fields: [mataKuliahId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

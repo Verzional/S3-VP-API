@@ -86,6 +86,12 @@ export class MataKuliahService {
     return MataKuliahModel.toResponse(mataKuliah);
   }
 
+  static async getAll(): Promise<MataKuliahResponse[]> {
+    const mataKuliahs = await prismaClient.mataKuliah.findMany();
+
+    return mataKuliahs.map(MataKuliahModel.toResponse);
+  }
+
   static async list(): Promise<MataKuliahResponse[]> {
     const mataKuliahs = await prismaClient.mataKuliah.findMany({
       include: { mahasiswa: true },

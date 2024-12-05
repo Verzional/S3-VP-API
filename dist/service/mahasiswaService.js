@@ -111,6 +111,12 @@ class MahasiswaService {
     }
     static getAll() {
         return __awaiter(this, void 0, void 0, function* () {
+            const mahasiswas = yield database_1.prismaClient.mahasiswa.findMany();
+            return mahasiswas.map(mahasiswaModel_1.MahasiswaModel.toResponse);
+        });
+    }
+    static list() {
+        return __awaiter(this, void 0, void 0, function* () {
             const mahasiswas = yield database_1.prismaClient.mahasiswa.findMany({
                 include: {
                     mataKuliah: true,

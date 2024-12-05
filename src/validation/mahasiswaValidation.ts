@@ -7,8 +7,8 @@ export class MahasiswaValidation {
     mataKuliahId: z.number().int().positive()
   });
   static readonly UPDATE: ZodType = z.object({
-    nama: z.string().min(1),
-    nim: z.string().min(1).max(20),
-    mataKuliahId: z.number().int().positive()
+    nama: z.string().min(1).optional(),
+    nim: z.string().min(1).max(20).optional(),
+    mataKuliahId: z.number().int().positive().optional()
   });
 }

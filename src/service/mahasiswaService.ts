@@ -125,6 +125,12 @@ export class MahasiswaService {
   }
 
   static async getAll(): Promise<MahasiswaResponse[]> {
+    const mahasiswas = await prismaClient.mahasiswa.findMany();
+
+    return mahasiswas.map(MahasiswaModel.toResponse);
+  }
+
+  static async list(): Promise<MahasiswaResponse[]> {
     const mahasiswas = await prismaClient.mahasiswa.findMany({
       include: {
         mataKuliah: true,

@@ -72,6 +72,12 @@ class MataKuliahService {
             return mataKuliahModel_1.MataKuliahModel.toResponse(mataKuliah);
         });
     }
+    static getAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const mataKuliahs = yield database_1.prismaClient.mataKuliah.findMany();
+            return mataKuliahs.map(mataKuliahModel_1.MataKuliahModel.toResponse);
+        });
+    }
     static list() {
         return __awaiter(this, void 0, void 0, function* () {
             const mataKuliahs = yield database_1.prismaClient.mataKuliah.findMany({
